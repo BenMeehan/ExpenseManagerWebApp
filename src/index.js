@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 
 import App from "./App";
 import getStore from "./store/storeConfig";
+import "./firebase/firebase";
 
 const store = getStore();
 

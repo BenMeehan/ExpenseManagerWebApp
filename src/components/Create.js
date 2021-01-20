@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import EntryForm from "./EntryForm";
-import { addExpense } from "../actions/expense";
+import { startAddExpense } from "../actions/expense";
 
 const Create = (props) => {
   return (
@@ -10,7 +10,7 @@ const Create = (props) => {
       <EntryForm
         expense={{}}
         onSubmit={(data) => {
-          props.dispatch(addExpense(data));
+          props.dispatch(startAddExpense(data));
           props.history.push("/");
         }}
       />

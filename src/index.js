@@ -30,7 +30,6 @@ const renderContent = () => {
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log("login");
     store.dispatch(login(user.uid));
     store.dispatch(startSetExpense()).then(() => {
       renderContent();
@@ -39,7 +38,6 @@ firebase.auth().onAuthStateChanged((user) => {
       }
     });
   } else {
-    console.log("logout");
     store.dispatch(logout());
     renderContent();
     history.push("/");

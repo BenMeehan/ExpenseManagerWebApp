@@ -11,7 +11,7 @@ const Edit = (props) => {
         expense={props.expenseName}
         onSubmit={(expense) => {
           props.dispatch(startEditExpense(props.match.params.id, expense));
-          props.history.push("/");
+          props.history.push("/dashboard");
         }}
       />
     </div>

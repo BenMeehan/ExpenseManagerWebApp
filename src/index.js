@@ -16,16 +16,14 @@ ReactDOM.render(<p>Loading</p>, document.getElementById("root"));
 
 let hasRendered = false;
 
-const render = () => {
+const renderContent = () => {
   if (!hasRendered) {
-    store.dispatch(startSetExpense()).then(() => {
-      ReactDOM.render(
-        <Provider store={store}>
-          <App />
-        </Provider>,
-        document.getElementById("root")
-      );
-    });
+    ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.getElementById("root")
+    );
     hasRendered = true;
   }
 };
@@ -34,14 +32,16 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     console.log("login");
     store.dispatch(login(user.uid));
-    render();
-    if (history.location.pathname === "/") {
-      history.push("/dashboard");
-    }
+    store.dispatch(startSetExpense()).then(() => {
+      renderContent();
+      if (history.location.pathname === "/") {
+        history.push("/dashboard");
+      }
+    });
   } else {
     console.log("logout");
     store.dispatch(logout());
-    render();
+    renderContent();
     history.push("/");
   }
 });

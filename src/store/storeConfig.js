@@ -1,7 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import expenseReducer from "../reducers/expense";
 import filtersReducer from "../reducers/filters";
-import thunk from "redux-thunk";
+import authenticationReducer from "../reducers/authentication";
 
 //Store
 
@@ -10,6 +11,7 @@ const getStore = () => {
     combineReducers({
       expense: expenseReducer,
       filters: filtersReducer,
+      authentication: authenticationReducer,
     }),
     applyMiddleware(thunk)
   );

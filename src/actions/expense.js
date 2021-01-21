@@ -25,7 +25,7 @@ export const startAddExpense = (expenseData = {}) => {
     };
 
     database
-      .ref()
+      .ref("expenses")
       .push(expense)
       .then((ref) => {
         dispatch(
@@ -47,11 +47,60 @@ export const removeExpense = ({ id }) => {
   };
 };
 
+export const startRemoveExpense = ({ id }) => {
+  return (dispatch) => {
+    database
+      .ref(`expenses/${id}`)
+      .remove()
+      .then(() => {
+        dispatch(removeExpense({ id }));
+      });
+  };
+};
+
 // EDIT Expense
 export const editExpense = (id, updates) => {
   return {
     type: "EDIT_EXPENSE",
     id,
     updates,
+  };
+};
+
+export const startEditExpense = (id, updates) => {
+  return (dispatch) => {
+    database
+      .ref(`expenses/${id}`)
+      .update(updates)
+      .then(() => {
+        dispatch(editExpense(id, updates));
+      });
+  };
+};
+
+// SET Expense
+
+export const setExpense = (expense) => {
+  return {
+    type: "SET_EXPENSE",
+    expense,
+  };
+};
+
+export const startSetExpense = () => {
+  return (dispatch) => {
+    return database
+      .ref("expenses")
+      .once("value")
+      .then((snapshot) => {
+        const expense = [];
+        snapshot.forEach((childSnapshot) => {
+          expense.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val(),
+          });
+        });
+        dispatch(setExpense(expense));
+      });
   };
 };

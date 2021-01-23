@@ -9,6 +9,8 @@ import {
   setEndDate,
 } from "../actions/filters";
 
+import { SimpleGrid, Box, Heading, Input, Select } from "@chakra-ui/react";
+
 class ExpenseListFilter extends React.Component {
   state = {
     startDate: this.props.filters.startDate,
@@ -32,46 +34,57 @@ class ExpenseListFilter extends React.Component {
   };
   render() {
     return (
-      <div>
-        <input
-          type="text"
-          value={this.props.filters.text}
-          onChange={(e) => {
-            this.props.dispatch(setTextFilter(e.target.value));
-          }}
-        />
-        <select
-          value={this.props.filters.sortBy}
-          onChange={(e) => {
-            if (e.target.value === "amount") {
-              this.props.dispatch(sortByAmount());
-            } else {
-              this.props.dispatch(sortByDate());
-            }
-          }}
-        >
-          <option value="date">Date</option>
-          <option value="amount">Amount</option>
-        </select>
-        <div>
-          <h4>
+      <SimpleGrid minChildWidth="120px" spacing="40px">
+        <Box my={6}>
+          <Input
+            focusBorderColor="lime"
+            type="text"
+            value={this.props.filters.text}
+            onChange={(e) => {
+              this.props.dispatch(setTextFilter(e.target.value));
+            }}
+            placeholder="search"
+          />
+        </Box>
+        <Box>
+          <Heading size="sm" pb={1}>
+            Sort By
+          </Heading>
+          <Select
+            value={this.props.filters.sortBy}
+            onChange={(e) => {
+              if (e.target.value === "amount") {
+                this.props.dispatch(sortByAmount());
+              } else {
+                this.props.dispatch(sortByDate());
+              }
+            }}
+          >
+            <option value="date">Date</option>
+            <option value="amount">Amount</option>
+          </Select>
+        </Box>
+        <Box>
+          <Heading size="sm" pb={3}>
             Start Date :{" "}
-            <DatePicker
-              value={this.state.startDate}
-              onChange={this.handleStartDateChange}
-              clearIcon={null}
-            />
-          </h4>
-          <h4>
+          </Heading>
+          <DatePicker
+            value={this.state.startDate}
+            onChange={this.handleStartDateChange}
+            clearIcon={null}
+          />
+        </Box>
+        <Box>
+          <Heading size="sm" pb={3}>
             End Date :{" "}
-            <DatePicker
-              value={this.state.endDate}
-              onChange={this.handleEndDateChange}
-              clearIcon={null}
-            />
-          </h4>
-        </div>
-      </div>
+          </Heading>
+          <DatePicker
+            value={this.state.endDate}
+            onChange={this.handleEndDateChange}
+            clearIcon={null}
+          />
+        </Box>
+      </SimpleGrid>
     );
   }
 }

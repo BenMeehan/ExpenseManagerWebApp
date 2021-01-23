@@ -1,6 +1,9 @@
 import React from "react";
 import DatePicker from "react-date-picker";
 
+import { Button, Container, Flex, Textarea } from "@chakra-ui/react";
+import { VStack, Input, Heading } from "@chakra-ui/react";
+
 class EntryForm extends React.Component {
   constructor(props) {
     super(props);
@@ -72,36 +75,65 @@ class EntryForm extends React.Component {
   };
   render() {
     return (
-      <div>
-        {this.state.error && <p>{this.state.error}</p>}
+      <Container my={10}>
+        <VStack>
+          {this.state.error && (
+            <Heading pb={5} size="lg">
+              {this.state.error}
+            </Heading>
+          )}
+        </VStack>
         <form onSubmit={this.handleFormSubmit}>
-          <input
-            type="text"
-            placeholder="Description"
-            value={this.state.description}
-            onChange={this.handleDescription}
-          />
-          <input
-            type="number"
-            placeholder="Amount"
-            value={this.state.amount}
-            onChange={this.handleAmount}
-          />
-          <DatePicker
-            value={this.state.createdAt}
-            onChange={this.handleDateChange}
-            clearIcon={null}
-          />
-          <textarea
-            cols="30"
-            rows="10"
-            placeholder="Optional Note"
-            value={this.state.note}
-            onChange={this.handleNote}
-          ></textarea>
-          <button type="submit">Add</button>
+          <VStack pb={5}>
+            <Input
+              size="lg"
+              focusBorderColor="pink.400"
+              variant="filled"
+              type="text"
+              placeholder="Description"
+              value={this.state.description}
+              onChange={this.handleDescription}
+            />
+          </VStack>
+          <VStack pb={5}>
+            <Input
+              size="lg"
+              focusBorderColor="green.400"
+              type="number"
+              placeholder="Amount"
+              value={this.state.amount}
+              onChange={this.handleAmount}
+            />
+          </VStack>
+          <VStack pb={5}>
+            <Flex>
+              <Heading size="sm" mr={20}>
+                Date :{" "}
+              </Heading>
+              <DatePicker
+                value={this.state.createdAt}
+                onChange={this.handleDateChange}
+                clearIcon={null}
+              />
+            </Flex>
+          </VStack>
+          <VStack pb={5}>
+            <Textarea
+              focusBorderColor="yellow.400"
+              cols="30"
+              rows="10"
+              placeholder="Optional Note"
+              value={this.state.note}
+              onChange={this.handleNote}
+            ></Textarea>
+          </VStack>
+          <VStack>
+            <Button type="submit" colorScheme="twitter">
+              Add
+            </Button>
+          </VStack>
         </form>
-      </div>
+      </Container>
     );
   }
 }

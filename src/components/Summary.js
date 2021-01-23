@@ -2,14 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import getExpense from "../selectors/expense";
 import expenseTotal from "../selectors/expense-total";
+import { Heading } from "@chakra-ui/react";
 
 const Summary = ({ expenseCount, expenseTotal }) => {
   const word = expenseCount === 1 ? "expense" : "expenses";
   return (
     <div>
-      <h1>
+      <Heading>
         Showing {expenseCount} {word} of total ₹{expenseTotal}
-      </h1>
+      </Heading>
     </div>
   );
 };

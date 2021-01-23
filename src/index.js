@@ -10,9 +10,18 @@ import { startSetExpense } from "./actions/expense";
 
 import { login, logout } from "./actions/authentication";
 
+import { ChakraProvider, Spinner, Center } from "@chakra-ui/react";
+
 const store = getStore();
 
-ReactDOM.render(<p>Loading</p>, document.getElementById("root"));
+ReactDOM.render(
+  <ChakraProvider>
+    <Center h={document.documentElement.clientHeight}>
+      <Spinner color="red.500" size="xl" />
+    </Center>
+  </ChakraProvider>,
+  document.getElementById("root")
+);
 
 let hasRendered = false;
 
@@ -20,7 +29,9 @@ const renderContent = () => {
   if (!hasRendered) {
     ReactDOM.render(
       <Provider store={store}>
-        <App />
+        <ChakraProvider>
+          <App />
+        </ChakraProvider>
       </Provider>,
       document.getElementById("root")
     );
